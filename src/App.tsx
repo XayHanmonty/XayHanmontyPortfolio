@@ -5,6 +5,12 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 import { useState } from 'react';
 import Scene from './components/Scene';
 
+// Import images
+import demoGif from './assets/Demo.gif';
+import semsGif from './assets/SEMS.gif';
+import videoGenGif from './assets/videoGen.gif';
+import ucBerkeleyLogo from './assets/UC Berkeley Logo.png';
+
 function App() {
   const [activeSection, setActiveSection] = useState('about');
 
@@ -144,7 +150,7 @@ function App() {
                     >
                       <div className="flex items-center gap-4 mb-4">
                         <img 
-                          src="src/assets/UC Berkeley Logo.png" 
+                          src={ucBerkeleyLogo}
                           alt="UC Berkeley"
                           className="w-12 h-12 object-contain"
                         />
@@ -232,7 +238,7 @@ function App() {
                 <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
                   <img 
-                    src="src/assets/Demo.gif" 
+                    src={demoGif}
                     alt="DeepRoots Demo"
                     className="w-full h-[500px] object-cover"
                   />
@@ -270,7 +276,7 @@ function App() {
                 <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
                   <img 
-                    src="src/SEMS.gif" 
+                    src={semsGif}
                     alt="SEMS Demo"
                     className="w-full h-[500px] object-cover"
                   />
@@ -306,7 +312,7 @@ function App() {
                 <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
                   <img  
-                    src="src/assets/videoGen.gif" 
+                    src={videoGenGif}
                     alt="videoGen Demo"
                     className="w-full h-[500px] object-cover"
                   />
