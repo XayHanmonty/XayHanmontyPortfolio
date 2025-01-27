@@ -5,11 +5,11 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 import { useState } from 'react';
 import Scene from './components/Scene';
 
-// Import images
-import demoGif from './assets/Demo.gif';
-import semsGif from './assets/SEMS.gif';
-import videoGenGif from './assets/videoGen.gif';
-import ucBerkeleyLogo from './assets/UC Berkeley Logo.png';
+// Import images as URLs
+const demoGif = new URL('./assets/Demo.gif', import.meta.url).href;
+const semsGif = new URL('./assets/SEMS.gif', import.meta.url).href;
+const videoGenGif = new URL('./assets/videoGen.gif', import.meta.url).href;
+const ucBerkeleyLogo = new URL('./assets/UC Berkeley Logo.png', import.meta.url).href;
 
 function App() {
   const [activeSection, setActiveSection] = useState('about');
