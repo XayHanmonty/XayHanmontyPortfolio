@@ -144,7 +144,7 @@ function App() {
                     >
                       <div className="flex items-center gap-4 mb-4">
                         <img 
-                          src="src/UC Berkeley Logo.png" 
+                          src="src/assets/UC Berkeley Logo.png" 
                           alt="UC Berkeley"
                           className="w-12 h-12 object-contain"
                         />
@@ -232,7 +232,7 @@ function App() {
                 <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
                   <img 
-                    src="src/Demo.gif" 
+                    src="src/assets/Demo.gif" 
                     alt="DeepRoots Demo"
                     className="w-full h-[500px] object-cover"
                   />
@@ -306,7 +306,7 @@ function App() {
                 <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
                   <img  
-                    src="src/videoGen.gif" 
+                    src="src/assets/videoGen.gif" 
                     alt="videoGen Demo"
                     className="w-full h-[500px] object-cover"
                   />
