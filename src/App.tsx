@@ -129,9 +129,9 @@ function App() {
                     <h1 className="text-7xl sm:text-8xl font-light tracking-wide leading-tight mb-8">
                       <AnimatedText text="Transforming ideas " />
                       <br />
-                      <AnimatedText text="into digital realities that" />
+                      <AnimatedText text="into digital realities " />
                       <br />
-                      <AnimatedText text="shape tomorrow." className="text-cyan-400" />
+                      <AnimatedText text="that shape tomorrow." className="text-cyan-400" />
                     </h1>
                     <motion.p 
                       initial={{ opacity: 0, y: 20 }}
