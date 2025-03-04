@@ -126,12 +126,12 @@ function App() {
               <div className="max-w-4xl mb-24">
                 <div className="flex items-start justify-between">
                   <div>
+                    
                     <h1 className="text-7xl sm:text-8xl font-light tracking-wide leading-tight mb-8">
-                      <AnimatedText text="Transforming ideas " />
+                      <AnimatedText text="Turning Ideas into" /> 
+                      {/* <AnimatedText text="" /> */}
                       <br />
-                      <AnimatedText text="into digital realities " />
-                      <br />
-                      <AnimatedText text="that shape tomorrow." className="text-cyan-400" />
+                      <AnimatedText text="real life"/> <AnimatedText text="products" className="text-cyan-400" />
                     </h1>
                     <motion.p 
                       initial={{ opacity: 0, y: 20 }}
@@ -139,7 +139,7 @@ function App() {
                       transition={{ delay: 0.1 }}
                       className="text-gray-400 mb-8 text-lg font-light leading-relaxed max-w-2xl"
                     >
-                    Hi, I’m Visitxay Hanmonty with experience at Amazon and startups. I have a passion for machine learning, LLMs, and building AI agents. Skilled in creating scalable backend systems, full-stack applications, and innovative AI tools, and cloud technologies like AWS. Outside of coding, I enjoy hiking, photography, and cooking.                    </motion.p>
+                    I’m Visitxay Hanmonty with experience at Amazon and startups. I have a passion for machine learning, LLMs, and building AI agents. Skilled in creating scalable backend systems, full-stack applications, and innovative AI tools, and cloud technologies like AWS. Outside of coding, I enjoy hiking, photography, and cooking.                    </motion.p>
 
                     {/* Education */}
                     <motion.div
