@@ -53,7 +53,7 @@ npm run build
 
 ## License
 
-MIT License - feel free to use this project as a template for your own portfolio!
+MIT License - @Copyright Xay Hanmonty
 
 ## Contact
 
@@ -61,4 +61,3 @@ Visitxay Hanmonty
 - GitHub: [@XayHanmonty](https://github.com/XayHanmonty)
 - LinkedIn: [visitxay-hanmonty](https://linkedin.com/in/visitxay-hanmonty)
 - Twitter: [@XayHanmonty](https://twitter.com/XayHanmonty)
-- Email: contact@visitxay.com
