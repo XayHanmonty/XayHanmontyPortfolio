@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import AnimatedText from '../components/AnimatedText/AnimatedText';
 
 const ucBerkeleyLogo = new URL('../assets/UC Berkeley Logo.png', import.meta.url).href;
+const profilePicture = new URL('../assets/profile.JPG', import.meta.url).href;
 
 const Home = forwardRef<HTMLDivElement>((props, ref) => {
   return (
@@ -16,7 +16,7 @@ const Home = forwardRef<HTMLDivElement>((props, ref) => {
                       <div className="flip-card-front">
                           <div className="relative w-72 h-96 bg-indigo-500 rounded-[48px] shadow-xl overflow-hidden">
                               <img
-                                  src="src\assets\profile.JPG"
+                                  src={profilePicture}
                                   alt="Profile Picture"
                                   className="w-full h-full object-cover object-[47.9%_24.1%]"
                               />
