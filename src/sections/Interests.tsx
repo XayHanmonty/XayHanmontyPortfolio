@@ -3,18 +3,19 @@ import { motion } from 'framer-motion';
 
 const interests = {
   technology: {
-    title: 'Technology',
+    title: 'Technical Domains',
     items: [
       'Artificial Intelligence & Machine Learning',
-      'Web Development',
-      'Infrastructure & DevOps System'
+      'Fullstack Development',
+      'Backend Engineering',
+      'Cloud/AI Infrastructure & DevOps System'
     ]
   },
   creative: {
     title: 'Creative',
     items: [
-      'Video Production',
-      'Digital Art & Photography'
+      'Video/Reels Production',
+      'Digital Art & Film Photography'
     ]
   },
   lifestyle: {

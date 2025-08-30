@@ -7,15 +7,33 @@ const ucBerkeleyLogo = new URL('../assets/UC Berkeley Logo.png', import.meta.url
 
 const Home = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div id="home" ref={ref} className="max-w-4xl mb-24">
-      <div className="flex items-start justify-between">
+    <div id="home" ref={ref} className="max-w-4xl mb-24 mx-auto">
+      <div className="flex flex-col items-center text-center">
         <div>
-          
-          <h1 className="text-7xl sm:text-8xl font-light tracking-wide leading-tight mb-8">
-            <AnimatedText text="Turning Ideas into" /> 
-            <br />
-            <AnimatedText text="real life"/> <AnimatedText text="products" className="text-cyan-400" />
-          </h1>
+          <div className="relative flex justify-center items-center py-24">
+              <div className="flip-card" style={{ width: '288px', height: '384px' }}>
+                  <div className="flip-card-inner">
+                      <div className="flip-card-front">
+                          <div className="relative w-72 h-96 bg-indigo-500 rounded-[48px] shadow-xl overflow-hidden">
+                              <img
+                                  src="src\assets\profile.JPG"
+                                  alt="Profile Picture"
+                                  className="w-full h-full object-cover object-[47.9%_24.1%]"
+                              />
+                          </div>
+                      </div>
+                      <div className="flip-card-back">
+                          <div className="w-72 h-96 rounded-[35px] shadow-xl flex flex-col items-center justify-center text-white">
+                              <p className="text-lg font-light">Scroll Down To Know Me Better <br/>👇</p>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="w-8 h-8 text-white mt-4">
+                                  <path d="M202.83,146.83l-72,72a4,4,0,0,1-5.66,0l-72-72a4,4,0,0,1,5.66-5.66L124,206.34V40a4,4,0,0,1,8,0V206.34l65.17-65.17a4,4,0,0,1,5.66,5.66Z"/>
+                              </svg>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -29,7 +47,7 @@ const Home = forwardRef<HTMLDivElement>((props, ref) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mb-12"
+            className="mb-12 flex justify-center"
           >
             <div className="flex items-center gap-4 mb-4">
               <img 
@@ -44,11 +62,12 @@ const Home = forwardRef<HTMLDivElement>((props, ref) => {
             </div>
           </motion.div>
 
+          {/* Social Media */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex gap-8"
+            className="flex gap-8 justify-center"
           >
             <a href="https://github.com/XayHanmonty" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
               <Github size={28} />
