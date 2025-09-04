@@ -8,7 +8,6 @@ import Projects from '@/sections/Projects';
 import Experience from '@/sections/Experience';
 import Interests from '@/sections/Interests';
 import ScrollTriggered from '@/components/ScrollTriggered/ScrollTriggered';
-import Cube from '@/components/Cube/cube'
 
 function App() {
   const sections = {

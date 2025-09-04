@@ -105,7 +105,7 @@ const card: React.CSSProperties = {
  * ==============   Data   ================
  */
 
-const food: [any, number, number][] = [
+const food: [string, number, number][] = [
     [AmazonIcon, 20, 40],
     [TmjIcon, 45, 45],
     [HumindIcon, 265, 255],

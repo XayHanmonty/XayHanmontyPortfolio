@@ -1,63 +1,38 @@
-# Personal Portfolio Website
+# XayHanmonty's Portfolio
 
-A modern, interactive portfolio website built with React, TypeScript, and TailwindCSS, featuring a beautiful 3D background and smooth animations.
+This repository contains the source code for my personal portfolio website.
 
-## Features
+## About The Project
 
-- 🌟 Modern UI with 3D background using Three.js
-- 🎨 Responsive design with TailwindCSS
-- ✨ Smooth animations using Framer Motion
-- 📱 Mobile-friendly layout
-- 🌓 Project showcase with hover effects
-- 🎯 Interactive experience section
+This is a modern, single-page application designed to showcase my projects, professional experience, and interests. It features a clean user interface with 3D animations and scroll-triggered events to create an engaging user experience.
 
-## Technologies Used
+![Alt text](website/src/assets/infra.png "Optional title text")
 
-- React
-- TypeScript
-- TailwindCSS
-- Three.js
-- Framer Motion
-- Vite
+### Tech Stack
 
-## Getting Started
+*   **Frontend:** [React](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/)
+*   **3D Graphics:** [Three.js](https://threejs.org/) via [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) and [@react-three/drei](https://github.com/pmndrs/drei)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **Animations:** [Framer Motion](https://www.framer.com/motion/)
 
-1. Clone the repository
-```bash
-git clone https://github.com/YourUsername/portfolio-website.git
-```
+## Usage
 
-2. Install dependencies
-```bash
-npm install
-```
+For detailed instructions on how to set up and run this project locally, please see the [USAGE.md](USAGE.md) file.
 
-3. Start the development server
-```bash
-npm run dev
-```
+## Deployment
 
-4. Build for production
-```bash
-npm run build
-```
+This project has two potential deployment configurations:
 
-## Project Structure
+### 1. GitHub Pages (Currently Active)
 
-- `/src` - Source code
-  - `/components` - React components
-  - `/assets` - Images and other static assets
-  - `/styles` - CSS styles
-  - `App.tsx` - Main application component
-  - `main.tsx` - Entry point
+The portfolio is automatically built and deployed to GitHub Pages upon every push to the `main` branch. The workflow is defined in `.github/workflows/deploy.yml` and handles everything from dependency installation to final deployment.
 
-## License
+### 2. AWS Infrastructure (Available)
 
-MIT License - @Copyright Xay Hanmonty
+The `infra/` directory contains a complete Infrastructure as Code (IaC) setup using [Terraform](https://www.terraform.io/). This configuration will provision a production-grade environment on AWS, including:
 
-## Contact
+*   **Amazon S3:** To host the static website files.
+*   **Amazon CloudFront:** To act as a global CDN for low-latency delivery.
+*   **Amazon Route 53 & ACM:** To manage a custom domain and SSL certificate.
 
-Visitxay Hanmonty
-- GitHub: [@XayHanmonty](https://github.com/XayHanmonty)
-- LinkedIn: [visitxay-hanmonty](https://linkedin.com/in/visitxay-hanmonty)
-- Twitter: [@XayHanmonty](https://twitter.com/XayHanmonty)
+This setup is not currently active in the CI/CD pipeline but is available for a more robust, scalable deployment.
