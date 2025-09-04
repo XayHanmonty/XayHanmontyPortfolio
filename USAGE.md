@@ -40,3 +40,30 @@ Follow these steps to get the development environment running:
     [http://localhost:5173](http://localhost:5173)
 
 The website will automatically reload if you make any changes to the source files.
+
+## Manual Deployment to AWS S3
+
+If you are using the AWS hosting setup, the deployment process is currently manual. Since automation is not yet in place, you must build the project and sync the output to your S3 bucket after every change.
+
+**Prerequisites:**
+- You must have the [AWS CLI](https://aws.amazon.com/cli/) installed and configured with the necessary permissions to write to the S3 bucket.
+
+**Steps:**
+
+1.  **Navigate to the website directory:**
+    If you are not already there:
+    ```sh
+    cd website
+    ```
+
+2.  **Build the website:**
+    This command compiles the project and places the final static files into the `dist` directory.
+    ```sh
+    npm run build
+    ```
+
+3.  **Sync to S3:**
+    This command uploads the contents of the `dist` directory to your S3 bucket. The `--delete` flag removes any files from the bucket that are not present in the `dist` directory.
+    ```sh
+    aws s3 sync ./dist s3://xayhanmontyportfolio --delete
+    ```
