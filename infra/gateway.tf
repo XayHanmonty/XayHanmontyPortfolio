@@ -38,10 +38,32 @@ resource "aws_apigatewayv2_route" "counter_post" {
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
+
+resource "aws_cloudwatch_log_group" "api_gateway_logs" {
+  name              = "/aws/api_gateway/${aws_apigatewayv2_api.http_api.name}"
+  retention_in_days = 7
+}
+
 resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.http_api.id
   name        = "$default"
   auto_deploy = true
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_logs.arn
+    format = jsonencode({
+      requestId               = "$context.requestId"
+      sourceIp                = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      protocol                = "$context.protocol"
+      httpMethod              = "$context.httpMethod"
+      resourcePath            = "$context.resourcePath"
+      status                  = "$context.status"
+      responseLength          = "$context.responseLength"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+      }
+    )
+  }
 }
 
 # Allow API Gateway to invoke Lambda
