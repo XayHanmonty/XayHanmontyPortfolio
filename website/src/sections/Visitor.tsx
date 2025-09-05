@@ -5,7 +5,7 @@ type VisitorProps = Record<string, never>;
 type CounterResponse = { pk: string; count: number };
 
 const API_BASE =
-  "https://xayhanmontyvisitorcounter.execute-api.us-west-2.amazonaws.com";
+  "https://gm2nkn3li9.execute-api.us-west-2.amazonaws.com"; // API GATEWAY URL
 
 const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
