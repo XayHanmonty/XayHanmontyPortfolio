@@ -1,6 +1,6 @@
 # XayHanmonty's Portfolio
 
-This repository contains the source code for my personal portfolio website.
+This repository contains the source code for my personal portfolio website follow best practices for IaC using Terraform and CI/CD.
 
 ## About The Project
 
@@ -10,10 +10,12 @@ This is a modern, single-page application designed to showcase my projects, prof
 
 ### Tech Stack
 
-*   **Frontend:** [React](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/)
+*   **Frontend:** [React](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/), [Python](https://www.python.org/)
 *   **3D Graphics:** [Three.js](https://threejs.org/) via [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) and [@react-three/drei](https://github.com/pmndrs/drei)
 *   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 *   **Animations:** [Framer Motion](https://www.framer.com/motion/)
+*   **Backend:** [Terraform](https://www.terraform.io/), [AWS](https://aws.amazon.com/)
+*   **Deployment:** [GitHub Actions](https://github.com/features/actions)
 
 ## Infrastructure
 
