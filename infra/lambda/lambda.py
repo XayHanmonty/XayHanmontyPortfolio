@@ -3,7 +3,7 @@ from botocore.exceptions import ClientError
 
 ddb = boto3.client("dynamodb")
 TABLE_NAME = os.environ["TABLE_NAME"]
-DEFAULT_PK = os.environ.get("COUNTER_PK", "site#global")
+DEFAULT_PK = os.environ.get("COUNTER_PK", "visitor#site")
 
 def _resp(code, body, *, cors_origin="*", cache_no_store=True):
     headers = {

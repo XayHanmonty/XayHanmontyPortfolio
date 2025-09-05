@@ -12,7 +12,6 @@ resource "aws_iam_role" "lambda_exec_role" {
     }]
   })
 
-  
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
@@ -48,22 +47,31 @@ resource "aws_iam_role_policy_attachment" "lambda_ddb_attach" {
   policy_arn = aws_iam_policy.lambda_ddb_policy.arn
 }
 
-# package stays the same (data "archive_file" ...)
+resource "aws_cloudwatch_log_group" "lambda_lg" {
+  name              = "/aws/lambda/visitor"
+  retention_in_days = 7
 
+  tags = {
+    ManagedBy = "Terraform"
+    Project   = "XayHanmontyPortfolio"
+  }
+}
+
+# package stays the same (data "archive_file" ...)
 resource "aws_lambda_function" "hello" {
-  function_name    = "hello"
+  depends_on       = [aws_cloudwatch_log_group.lambda_lg]
+  function_name    = "visitor"
   role             = aws_iam_role.lambda_exec_role.arn
   handler          = "lambda.handler"
   runtime          = "python3.12"
-  filename         = data.archive_file.lambda_zip.output_path
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  filename         = data.archive_file.lambda_zip.output_path # Automate zip
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256 # Automate zip
   timeout          = 5
 
-  # ← add env so your code sees the table
   environment {
     variables = {
       TABLE_NAME = var.table_name
-      COUNTER_PK = "site#global"   # optional default
+      COUNTER_PK = "visitor#site"   # default
     }
   }
 }

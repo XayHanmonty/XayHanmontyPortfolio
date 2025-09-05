@@ -1,6 +1,6 @@
 # HTTP API (API Gateway v2)
 resource "aws_apigatewayv2_api" "http_api" {
-  name          = "hello-http-api"
+  name          = "visitor-count-api"
   protocol_type = "HTTP"
 
   cors_configuration {
