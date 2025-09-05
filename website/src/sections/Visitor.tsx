@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-interface VisitorProps {}
+type VisitorProps = Record<string, never>;
 type CounterResponse = { pk: string; count: number };
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "https://gm2nkn3li9.execute-api.us-west-2.amazonaws.com";
