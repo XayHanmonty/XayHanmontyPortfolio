@@ -1,24 +1,20 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-type VisitorProps = Record<string, never>;
+interface VisitorProps {}
 type CounterResponse = { pk: string; count: number };
 
-// While you’re using API Gateway directly:
 const API_BASE = import.meta.env.VITE_API_BASE ?? "https://gm2nkn3li9.execute-api.us-west-2.amazonaws.com";
-// After you wire CloudFront -> API Gateway, set VITE_API_BASE="" and rely on relative paths.
 
-const PK = encodeURIComponent("site#global");
-const SESSION_KEY = "visitorCounter.incremented";
+const PK = encodeURIComponent("visitor#site");
 
 const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const didRunRef = useRef<boolean>(false);
 
   useEffect(() => {
     const controller = new AbortController();
-
+  
     const fetchCount = async () => {
       const res = await fetch(`${API_BASE}/counter?pk=${PK}`, {
         method: "GET",
@@ -29,29 +25,10 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
       const data = (await res.json()) as CounterResponse;
       return data.count ?? 0;
     };
-
+  
     const run = async () => {
       try {
-        if (didRunRef.current) return;
-        didRunRef.current = true;
-
-        // Increment once per session; prefer POST's returned {count}
-        if (!sessionStorage.getItem(SESSION_KEY)) {
-          const postRes = await fetch(`${API_BASE}/counter?pk=${PK}`, {
-            method: "POST",
-            signal: controller.signal,
-            cache: "no-store",
-          });
-          if (!postRes.ok) throw new Error(`POST /counter ${postRes.status}`);
-          const postData = (await postRes.json()) as CounterResponse;
-          if (typeof postData?.count === "number") {
-            setVisitorCount(postData.count);
-            sessionStorage.setItem(SESSION_KEY, "1");
-            return;
-          }
-        }
-
-        // Fallback/read (with 1 quick retry)
+        // Try once, then retry after 200ms if it fails
         try {
           setVisitorCount(await fetchCount());
         } catch {
@@ -65,7 +42,7 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
         setVisitorCount(0);
       }
     };
-
+  
     run();
     return () => controller.abort();
   }, []);

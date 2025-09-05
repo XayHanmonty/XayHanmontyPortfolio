@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Scene from '@/components/Scene';
 import Home from '@/sections/Home';
 import Projects from '@/sections/Projects';
@@ -25,6 +25,24 @@ function App() {
       sectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  // Increment visitor count
+  useEffect(() => {
+    fetch('https://gm2nkn3li9.execute-api.us-west-2.amazonaws.com/counter', {
+      method: 'POST',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Visitor count incremented:', data);
+    })
+    .catch(error => {
+      console.error('Error incrementing visitor count:', error);
+    });
+  }, []);
 
   return (
     <div className="h-screen w-full bg-gradient-to-b from-black to-[#0a192f] text-white overflow-y-scroll">
