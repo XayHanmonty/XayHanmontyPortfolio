@@ -44,7 +44,7 @@ const Visitor = forwardRef<HTMLDivElement>((props, ref) => {
         {/* Counter */}
         <div className="flex justify-center mb-16">
           {Object.entries(Counter).map(([key, { title, items }]) => (
-            <>
+            <div key={key}>
               <h3 className="text-xl font-light tracking-wider mb-6 text-center">{title}</h3>
               <ul className="space-y-3 text-gray-400 font-light flex flex-col items-center">
                 {items.map((item, index) => (
@@ -59,7 +59,7 @@ const Visitor = forwardRef<HTMLDivElement>((props, ref) => {
                   </motion.li>
                 ))}
               </ul>
-            </>
+            </div>
           ))}
         </div>
       </motion.div>
