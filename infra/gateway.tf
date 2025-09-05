@@ -4,7 +4,7 @@ resource "aws_apigatewayv2_api" "http_api" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["www.xayhanmonty.com", "xayhanmonty.com"]  # tighten to your domain later
+    allow_origins = ["https://www.xayhanmonty.com", "https://xayhanmonty.com"]  # tighten to your domain later
     allow_methods = ["GET", "POST", "OPTIONS"]  # ← add POST
     allow_headers = ["*"]
   }
