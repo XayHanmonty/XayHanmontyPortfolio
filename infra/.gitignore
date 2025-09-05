@@ -15,4 +15,4 @@ crash.log
 # Local Terraform modules
 .terraform/
 
-.terraform.lock.hcl
+.infra/.terraform.lock.hcl
