@@ -22,5 +22,16 @@ variable "alternate_names" {
 }
 
 #-------------------
+#------MODULES------
+#-------------------
+
+module "lambda" {
+  source     = "./lambda"
+  table_name = aws_dynamodb_table.counter.name
+  table_arn  = aws_dynamodb_table.counter.arn
+}
+
+
+#-------------------
 #------OUTPUT-------
 #-------------------
