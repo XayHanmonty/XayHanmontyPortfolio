@@ -1,13 +1,16 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-type VisitorProps = Record<string, never>; // no props
+type VisitorProps = Record<string, never>;
 type CounterResponse = { pk: string; count: number };
+
+const API_BASE =
+  "https://xayhanmontyvisitorcounter.execute-api.us-west-2.amazonaws.com";
 
 const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const didRunRef = useRef<boolean>(false);
+  const didRunRef = useRef(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -21,9 +24,9 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
         const pk = encodeURIComponent("site#global");
         const sessionKey = "visitorCounter.incremented";
 
-        // Increment once per session, prefer POST returning {count}
+        // Increment once per session; prefer POST's returned count
         if (!sessionStorage.getItem(sessionKey)) {
-          const postRes = await fetch(`/counter?pk=${pk}`, {
+          const postRes = await fetch(`${API_BASE}/counter?pk=${pk}`, {
             method: "POST",
             signal: controller.signal,
           });
@@ -32,20 +35,19 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
           if (typeof postData?.count === "number") {
             setVisitorCount(postData.count);
             sessionStorage.setItem(sessionKey, "1");
-            return; // done—skip GET
+            return; // no need for a follow-up GET
           }
         }
 
         // Fallback/read
-        const getRes = await fetch(`/counter?pk=${pk}`, {
+        const getRes = await fetch(`${API_BASE}/counter?pk=${pk}`, {
           method: "GET",
           signal: controller.signal,
         });
         if (!getRes.ok) throw new Error(`GET /counter ${getRes.status}`);
         const getData = (await getRes.json()) as CounterResponse;
         setVisitorCount(typeof getData?.count === "number" ? getData.count : 0);
-      } catch (err: unknown) {
-        // Ignore aborts
+      } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
         console.error("Visitor counter error:", err);
         setErrorMsg("Unable to load visitor count.");
@@ -57,26 +59,36 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
     return () => controller.abort();
   }, []);
 
-  const items =
-    visitorCount !== null ? [`Total Visitors: ${visitorCount}`] : [errorMsg ?? "Loading visitor count..."];
+  const text =
+    visitorCount !== null
+      ? `Total Visitors: ${visitorCount}`
+      : errorMsg ?? "Loading visitor count...";
 
   return (
     <div id="counter" ref={ref} className="max-w-4xl mx-auto mb-24">
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mt-32">
-        <h2 className="text-3xl font-light mb-12 tracking-wider text-center">Visitors</h2>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="mt-32"
+      >
+        <h2 className="text-3xl font-light mb-12 tracking-wider text-center">
+          Visitors
+        </h2>
+
         <div className="flex justify-center mb-16">
-          <ul className="space-y-3 text-gray-400 font-light flex flex-col items-center" aria-live="polite">
-            {items.map((item, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="flex items-center gap-3"
-              >
-                {item}
-              </motion.li>
-            ))}
+          <ul
+            className="space-y-3 text-gray-400 font-light flex flex-col items-center"
+            aria-live="polite"
+          >
+            <motion.li
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex items-center gap-3"
+            >
+              {text}
+            </motion.li>
           </ul>
         </div>
       </motion.div>
