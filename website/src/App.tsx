@@ -27,6 +27,9 @@ function App() {
   };
   // Increment visitor count
   useEffect(() => {
+    if (sessionStorage.getItem('hasVisited')) {
+      return;
+    }
     fetch('https://gm2nkn3li9.execute-api.us-west-2.amazonaws.com/counter', {
       method: 'POST',
     })
@@ -38,6 +41,7 @@ function App() {
     })
     .then(data => {
       console.log('Visitor count incremented:', data);
+      sessionStorage.setItem('hasVisited', 'true');
     })
     .catch(error => {
       console.error('Error incrementing visitor count:', error);
