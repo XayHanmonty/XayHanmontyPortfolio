@@ -1,70 +1,88 @@
-import { forwardRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
-const Visitor = forwardRef<HTMLDivElement>((props, ref) => {
+type VisitorProps = Record<string, never>; // no props
+type CounterResponse = { pk: string; count: number };
+
+const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const didRunRef = useRef<boolean>(false);
 
-  // Counter
   useEffect(() => {
-    const incrementAndFetchVisitorCount = async () => {
+    const controller = new AbortController();
+
+    const run = async () => {
       try {
-        await fetch("https://xayhanmontyvisitorcounter.execute-api.us-west-2.amazonaws.com/counter", {
-          method: "POST"
+        // Prevent double run in React 18 StrictMode (dev)
+        if (didRunRef.current) return;
+        didRunRef.current = true;
+
+        const pk = encodeURIComponent("site#global");
+        const sessionKey = "visitorCounter.incremented";
+
+        // Increment once per session, prefer POST returning {count}
+        if (!sessionStorage.getItem(sessionKey)) {
+          const postRes = await fetch(`/counter?pk=${pk}`, {
+            method: "POST",
+            signal: controller.signal,
+          });
+          if (!postRes.ok) throw new Error(`POST /counter ${postRes.status}`);
+          const postData = (await postRes.json()) as CounterResponse;
+          if (typeof postData?.count === "number") {
+            setVisitorCount(postData.count);
+            sessionStorage.setItem(sessionKey, "1");
+            return; // done—skip GET
+          }
+        }
+
+        // Fallback/read
+        const getRes = await fetch(`/counter?pk=${pk}`, {
+          method: "GET",
+          signal: controller.signal,
         });
-        const res = await fetch("https://xayhanmontyvisitorcounter.execute-api.us-west-2.amazonaws.com/counter");
-        const data = await res.json();
-        setVisitorCount(data.count);
-      } catch (error) {
-        console.error("Error incrementing or fetching visitor count:", error);
+        if (!getRes.ok) throw new Error(`GET /counter ${getRes.status}`);
+        const getData = (await getRes.json()) as CounterResponse;
+        setVisitorCount(typeof getData?.count === "number" ? getData.count : 0);
+      } catch (err: unknown) {
+        // Ignore aborts
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        console.error("Visitor counter error:", err);
+        setErrorMsg("Unable to load visitor count.");
         setVisitorCount(0);
       }
     };
 
-    incrementAndFetchVisitorCount();
+    run();
+    return () => controller.abort();
   }, []);
 
-  const Counter = {
-    Visitor: {
-      title: null,
-      items: visitorCount !== null ? [`Total Visitors: ${visitorCount}`] : ["Loading visitor count..."]
-    }
-  };
+  const items =
+    visitorCount !== null ? [`Total Visitors: ${visitorCount}`] : [errorMsg ?? "Loading visitor count..."];
 
   return (
     <div id="counter" ref={ref} className="max-w-4xl mx-auto mb-24">
-      {/* Visitor Section */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="mt-32"
-      >
-        <h2 className="text-3xl font-light mb-12 tracking-wider text-center">Visitor</h2>
-        
-        {/* Counter */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mt-32">
+        <h2 className="text-3xl font-light mb-12 tracking-wider text-center">Visitors</h2>
         <div className="flex justify-center mb-16">
-          {Object.entries(Counter).map(([key, { title, items }]) => (
-            <div key={key}>
-              <h3 className="text-xl font-light tracking-wider mb-6 text-center">{title}</h3>
-              <ul className="space-y-3 text-gray-400 font-light flex flex-col items-center">
-                {items.map((item, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    {item}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <ul className="space-y-3 text-gray-400 font-light flex flex-col items-center" aria-live="polite">
+            {items.map((item, idx) => (
+              <motion.li
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                {item}
+              </motion.li>
+            ))}
+          </ul>
         </div>
       </motion.div>
     </div>
   );
 });
 
+Visitor.displayName = "Visitor";
 export default Visitor;
