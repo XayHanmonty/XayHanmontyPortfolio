@@ -34,5 +34,9 @@ The `infra/` directory contains a complete Infrastructure as Code (IaC) setup us
 *   **Amazon S3:** To host the static website files.
 *   **Amazon CloudFront:** To act as a global CDN for low-latency delivery.
 *   **Amazon Route 53 & ACM:** To manage a custom domain and SSL certificate.
-
-This setup is not currently active in the CI/CD pipeline but is available for a more robust, scalable deployment.
+*   **Amazon DynamoDB**: A NoSQL database service used to store and manage visit counters for the portfolio. The table `xayportfolio_visit_counters` stores `pk` (primary key) and `count` attributes.
+*   **AWS Lambda**: A serverless compute service that executes backend logic. The `hello` Lambda function handles requests for `/hello` and `/counter` endpoints. It interacts with DynamoDB to retrieve and increment visit counts.
+*   **Amazon API Gateway**: Creates a RESTful API that acts as the front door for applications to access data, business logic, or functionality from backend services. This project uses an HTTP API (`hello-http-api`) with the following routes:
+    *   `GET /hello`: A basic endpoint returning a "Hello from Lambda!" message.
+    *   `GET /counter`: Retrieves the current visit count.
+    *   `POST /counter`: Increments the visit count.
