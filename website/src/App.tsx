@@ -7,6 +7,7 @@ import Home from '@/sections/Home';
 import Projects from '@/sections/Projects';
 import Experience from '@/sections/Experience';
 import Interests from '@/sections/Interests';
+import Visitor from '@/sections/Visitor';
 import ScrollTriggered from '@/components/ScrollTriggered/ScrollTriggered';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     projects: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
     interests: useRef<HTMLDivElement>(null),
+    visitor: useRef<HTMLDivElement>(null),
   };
 
   const scrollToSection = (section: string) => {
@@ -48,7 +50,7 @@ function App() {
             VISITXAY HANMONTY
           </motion.h1>
           <div className="flex gap-12">
-            {['home', 'experience', 'projects', 'interests'].map((section) => (
+            {['home', 'experience', 'projects', 'interests', 'visitor'].map((section) => (
               <motion.button 
                 key={section}
                 onClick={() => scrollToSection(section)}
@@ -73,7 +75,7 @@ function App() {
         </div>
         <Projects ref={sections.projects} />
         <Interests ref={sections.interests} />
-        
+        <Visitor ref={sections.visitor} />
       </div>
     </div>
   );
