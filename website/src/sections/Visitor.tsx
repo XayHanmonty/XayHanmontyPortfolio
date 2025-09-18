@@ -49,7 +49,7 @@ const Visitor = forwardRef<HTMLDivElement, VisitorProps>((_, ref) => {
 
   const text =
     visitorCount !== null
-      ? `Total Visitors: ${visitorCount}`
+      ? `Visitors: ${visitorCount}`
       : errorMsg ?? "Loading visitor count...";
 
   return (
