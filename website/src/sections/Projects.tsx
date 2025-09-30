@@ -5,6 +5,7 @@ const demoGif = new URL('../assets/Demo.gif', import.meta.url).href;
 const semsGif = new URL('../assets/SEMS.gif', import.meta.url).href;
 const videoGenGif = new URL('../assets/videoGen.gif', import.meta.url).href;
 const infra = new URL('../assets/infra_project.png', import.meta.url).href;
+const h_m = new URL('../assets/ui_example.png', import.meta.url).href;
 
 const Projects = forwardRef<HTMLDivElement>((props, ref) => {
   return (
@@ -42,6 +43,43 @@ const Projects = forwardRef<HTMLDivElement>((props, ref) => {
               </div>
               <div className="flex items-center gap-6">
                 <a href="https://github.com/XayHanmonty/XayHanmontyPortfolio" className="text-cyan-400 flex items-center gap-2 group">
+                  View Project
+                  <span className="transform transition-transform group-hover:translate-x-1">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="group relative"
+      >
+        <div className="relative overflow-hidden bg-gray-100 rounded-xl transition-all duration-500 group-hover:bg-cyan-400">
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40 z-10" />
+          <img 
+            src={h_m}
+            alt="H&M Recommandation System"
+            className="w-full h-[500px] object-cover"
+          />
+          <div className="absolute inset-0 z-20 p-12 flex flex-col justify-between">
+            <div>
+              <h3 className="text-3xl font-light tracking-wider mb-4">H&M Recommandation System</h3>
+              <p className="text-gray-300 font-light max-w-xl opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              A scalable, modular, and production-ready recommendation engine that can deliver real-time personalized suggestions for e-commerce users, combining both collaborative and content-based methods, and integrating modern MLOps practices
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-light text-cyan-400 border border-cyan-400/20">Hopswork</span>
+                <span className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-light text-cyan-400 border border-cyan-400/20">Python(Tensor, Polars)</span>
+                <span className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-light text-cyan-400 border border-cyan-400/20">OpenAI</span>
+                <span className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-light text-cyan-400 border border-cyan-400/20">Streamlit</span>
+              </div>
+              <div className="flex items-center gap-6">
+                <a href="https://github.com/XayHanmonty/recommendation_system" className="text-cyan-400 flex items-center gap-2 group">
                   View Project
                   <span className="transform transition-transform group-hover:translate-x-1">→</span>
                 </a>
